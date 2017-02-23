@@ -1,10 +1,15 @@
 #!/bin/bash
-source /etc/profile
+
+#@version 1.0
+#此脚本用于在运行hdfs的机器上上传指定目录log_src_dir下的文件到hdfs上
+#log_up_dir为中转目录
+#在中转目录在文件名上加上时间信息，以免文件重名且能记录文件上传的时间
+
+
 log_src_dir="/home/centos/logs/log"
 
 log_up_dir="/home/centos/logs/upload"
 
-#把日志文件移动到待上传的目录upload
 date0=`date +%Y-%m-%d-%H-%M-%S`
 ls $log_src_dir | while read line
 do

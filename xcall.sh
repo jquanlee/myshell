@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#快捷的在hadoop集群的所有机器上执行参数所跟的命令
+#前提是已经配置了免秘密登录，
+#可用于给集群的机器分发配置文件，查看服务状态等
 source /etc/profile
 parma=$@
 #echo $# $parma

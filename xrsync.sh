@@ -1,18 +1,32 @@
 #!/bin/bash
+source /etc/profile
 
-file=$@
-
+file=${!#}
 dname=`dirname $file`
 bname=`basename $file`
-#lpwd=`cd $dname;pwd -P`
 cd $dname
 lpwd=`pwd -P`
 user=`whoami`
 
-echo $file----$dname----$bname----$lpwd
+if [ $# == 1 ]
+then
+	echo $file----$dname----$bname----$lpwd
 
-for((i=3;i<=5;i++))
-do
-echo rsync -lr $bname $user@os0$i:${lpwd}/$bname
-rsync -lr $bname $user@os0$i:$lpwd/$bname
-done
+	echo rsync -lr $bname $user@os01:${lpwd}/
+	rsync -lr $bname $user@os01:$lpwd/
+	for((i=3;i<=6;i++))
+	do
+		echo rsync -lr $bname $user@os0$i:${lpwd}/
+		rsync -lr $bname $user@os0$i:$lpwd/
+	done
+
+else
+	echo $file----$dname----$bname----$lpwd
+	for((i=1;i<=($#-1);i++))
+	do
+		eval j=\$$i
+		echo rsync -lr $bname $user@$j:${lpwd}/
+		rsync -lr $bname $user@$j:$lpwd/
+	done
+
+fi

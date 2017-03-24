@@ -1,0 +1,20 @@
+#!/bin/bash
+source /etc/profile
+file=$@
+
+dname=`dirname $file`
+bname=`basename $file`
+#lpwd=`cd $dname;pwd -P`
+cd $dname
+lpwd=`pwd -P`
+user=`whoami`
+
+echo $file----$dname----$bname----$lpwd
+
+echo rsync -lr $bname $user@os01:${lpwd}/
+rsync -lr $bname $user@os01:$lpwd/
+for((i=3;i<=6;i++))
+do
+echo rsync -lr $bname $user@os0$i:${lpwd}/
+rsync -lr $bname $user@os0$i:$lpwd/
+done

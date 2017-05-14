@@ -9,24 +9,19 @@ parma=${!#}
 if [ $# == 0 ]
 then
 	echo "Error ,parameters must be given!!!"
-	echo "eg: xcallzk [host1 host2.....] start|stop|stauts"
+	echo "eg: xcallstorm [host1 host2.....] nimbus | supervisor | ui | logviewer"
 elif [ $# -gt 1 ]
 then
 	for((i=1;i<$#;i++))
 	do
 		eval j=\$$i
 		echo ========================$j:$parma================================
-		ssh $j "source /etc/profile ; zkServer.sh $parma"
+		ssh $j "source /etc/profile ; storm $parma"
 	done
 else
 	for os in os02 os03 os04
 	do
-		echo ---------------------------$os:$parma--------------------------------
-		if [ $parma == "stop" -o $parma == "start" -o $parma == "status" ]
-		then
-			ssh $os "source /etc/profile ;zkServer.sh $parma"
-		else
-			ssh $os "source /etc/profile ; $parma"
-		fi
+		echo ===========$os:$parma================
+		ssh $os "source /etc/profile ; storm $parma"
 	done
 fi

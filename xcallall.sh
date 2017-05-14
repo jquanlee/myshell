@@ -7,8 +7,8 @@ source /etc/profile
 parma=$@
 #echo $# $parma
 
-for os in os01 os03 os04 os05 os06 os02
+for os in os03 os04 os05 os06 os02
 do
-	echo ===========$os:$parma================
+	echo ------------------------------$os:$parma-----------------------------------
 	ssh $os "source /etc/profile ; $parma"
 done

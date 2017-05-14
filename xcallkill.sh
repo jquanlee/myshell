@@ -7,18 +7,19 @@ source /etc/profile
 parma=${!#}
 #echo $# $parma
 #echo $#
+
 if [ $# -gt 1 ]
 then
 	for((i=1;i<$#;i++))
 	do
 		eval j=\$$i
-		echo ----------------------------------$j:$parma-----------------------------------
-		ssh $j "source /etc/profile ; $parma"	
+		echo ----------------------------------$j:kill $parma-----------------------------------
+		ssh $j "source /etc/profile ; xkill $parma"	
 	done
 else 
-	for((i=2;i<=6;i++))
+	for((i=1;i<=6;i++))
 	do
-		echo ----------------------------------os0$i:$parma-----------------------------------
-		ssh os0$i  "source /etc/profile ; $parma"
+		echo ----------------------------------os0$i:kill $parma-----------------------------------
+		ssh os0$i  "source /etc/profile ; xkill $parma"
 	done
 fi
